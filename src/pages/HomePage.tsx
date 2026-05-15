@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useRef } from 'react';
+﻿import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { getPhones, Phone } from '../services/api';
 import PhoneCard from '../components/PhoneCard';
 import { Search, SlidersHorizontal, X, ChevronDown, Loader2 } from 'lucide-react';
@@ -93,7 +93,7 @@ const HomePage: React.FC = () => {
               Admin Dashboard
             </p>
             <h1 style={{ fontSize: 'clamp(2rem, 6vw, 3.5rem)', marginBottom: '0.75rem', lineHeight: 1.1 }}>
-              Hello, <span style={{ color: 'var(--accent)' }}>{user?.name?.split(' ')[0]}</span> 👋
+              Hello, <span style={{ color: 'var(--accent)' }}>{user?.name?.split(' ')[0]}</span>
             </h1>
             <p style={{ color: 'var(--text-muted)', fontSize: '1.1rem', maxWidth: '600px', margin: '0 auto 2rem' }}>
               Explore and manage your device inventory. Add, edit, or remove phones instantly.
@@ -287,9 +287,7 @@ const HomePage: React.FC = () => {
                   disabled={page === 0}
                   onClick={() => handlePageChange(page - 1)}
                   className="pagination-btn"
-                >
-                  ← Prev
-                </button>
+                >Prev</button>
                 {[...Array(totalPages)].map((_, i) => (
                   <button
                     key={i}
@@ -303,9 +301,7 @@ const HomePage: React.FC = () => {
                   disabled={page === totalPages - 1}
                   onClick={() => handlePageChange(page + 1)}
                   className="pagination-btn"
-                >
-                  Next →
-                </button>
+                >Next</button>
               </div>
             )}
           </>
@@ -326,3 +322,5 @@ const HomePage: React.FC = () => {
 };
 
 export default HomePage;
+
+

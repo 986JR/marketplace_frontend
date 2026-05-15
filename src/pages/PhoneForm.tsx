@@ -31,6 +31,7 @@ const PhoneForm: React.FC = () => {
 
   useEffect(() => {
     if (isEdit) {
+      if (!id) return;
       getPhoneById(id).then(phone => {
         setFormData({
           brand: phone.brand,
@@ -39,14 +40,16 @@ const PhoneForm: React.FC = () => {
           condition: phone.condition,
           description: phone.description || '',
           specification: {
-            RAM: phone.specification?.RAM || '',
-            Storage: phone.specification?.Storage || '',
-            Battery: phone.specification?.Battery || '',
-            Camera: phone.specification?.Camera || '',
-            Screen: phone.specification?.Screen || ''
+            RAM: phone.specification?.ram || '',
+            Storage: phone.specification?.storage || '',
+            Battery: phone.specification?.battery || '',
+            Camera: phone.specification?.camera || '',
+            Screen: phone.specification?.screen || ''
           }
         });
         setExistingImages(phone.images || []);
+        setLoading(false);
+      }).catch(() => {
         setLoading(false);
       });
     }
@@ -100,7 +103,8 @@ const PhoneForm: React.FC = () => {
 
     try {
       if (isEdit) {
-        await updatePhone(parseInt(id), data);
+        if (!id) return;
+        await updatePhone(parseInt(id, 10), data);
       } else {
         await createPhone(data);
       }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+﻿import React, { useEffect, useState } from 'react';
 import { Facebook, Instagram, Twitter, MessageCircle, Phone, Mail, MapPin } from 'lucide-react';
 import { getContactInfo, ContactInfo } from '../services/api';
 
@@ -38,11 +38,11 @@ const Footer: React.FC = () => {
             </p>
             <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-start', color: 'var(--text-muted)', fontSize: '0.85rem' }}>
               <MapPin size={16} style={{ flexShrink: 0, marginTop: '2px', color: 'var(--accent)' }} />
-              <span>Barabara ya Sita, Dodoma — Mkabala na Kitwizi Accessories</span>
+              <span>Barabara ya Sita, Dodoma - Mkabala na Kitwizi Accessories</span>
             </div>
           </div>
 
-          {/* Contact Info — fully dynamic from admin */}
+          {/* Contact Info - fully dynamic from admin */}
           <div>
             <h4 style={{ fontSize: '1rem', marginBottom: '1.25rem', fontWeight: 600 }}>Contact Us</h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.9rem' }}>
@@ -87,7 +87,7 @@ const Footer: React.FC = () => {
             </div>
           </div>
 
-          {/* Social Links — only shown if set */}
+          {/* Social Links - only shown if set */}
           {socialLinks.length > 0 && (
             <div>
               <h4 style={{ fontSize: '1rem', marginBottom: '1.25rem', fontWeight: 600 }}>Follow Us</h4>
@@ -149,3 +149,5 @@ const Footer: React.FC = () => {
 };
 
 export default Footer;
+
+

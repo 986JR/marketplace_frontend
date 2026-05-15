@@ -36,8 +36,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   useEffect(() => {
+    let finished = false;
+    const guard = setTimeout(() => {
+      if (!finished) {
+        setLoading(false);
+      }
+    }, 10000);
+
     if (token) {
-      api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       api.get('/auth/me')
         .then(res => {
           setUser(res.data.data);
@@ -45,10 +51,21 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         .catch(() => {
           logout();
         })
-        .finally(() => setLoading(false));
+        .finally(() => {
+          finished = true;
+          clearTimeout(guard);
+          setLoading(false);
+        });
     } else {
+      finished = true;
+      clearTimeout(guard);
       setLoading(false);
     }
+
+    return () => {
+      finished = true;
+      clearTimeout(guard);
+    };
   }, [token]);
 
   return (
