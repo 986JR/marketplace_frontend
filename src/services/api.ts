@@ -13,10 +13,16 @@ const api = axios.create({
 
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('accessToken');
-  if (token) {
+
+  const isAuthRoute =
+    config.url?.includes('/auth/login') ||
+    config.url?.includes('/auth/register');
+
+  if (token && !isAuthRoute) {
     config.headers = config.headers ?? {};
     config.headers.Authorization = `Bearer ${token}`;
   }
+
   return config;
 });
 
