@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import api, { updateProfile } from '../services/api';
 import { User, Mail, Phone, MessageCircle, Facebook, Instagram, Twitter, Save, Loader2, CheckCircle, Shield, Edit3 } from 'lucide-react';
+import { ensureExternalUrl, normalizePhoneNumber } from '../utils/contact';
 
 const AdminProfile: React.FC = () => {
   const { user } = useAuth();
@@ -40,8 +41,16 @@ const AdminProfile: React.FC = () => {
     if (saving) return;
     setSaving(true);
     setError('');
+    const payload = {
+      ...formData,
+      phoneNumber: normalizePhoneNumber(formData.phoneNumber),
+      whatsappNumber: normalizePhoneNumber(formData.whatsappNumber),
+      facebookLink: ensureExternalUrl(formData.facebookLink),
+      instagramLink: ensureExternalUrl(formData.instagramLink),
+      twitterLink: ensureExternalUrl(formData.twitterLink),
+    };
     try {
-      await updateProfile(formData);
+      await updateProfile(payload);
       setSuccess(true);
       setTimeout(() => setSuccess(false), 3000);
     } catch (err: any) {
@@ -137,7 +146,7 @@ const AdminProfile: React.FC = () => {
         <div className="glass" style={{ padding: '1.75rem', borderRadius: '20px' }}>
           <h3 style={{ marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1rem' }}>
             <Instagram size={17} color="var(--accent)" /> Social Media
-            <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 400, marginLeft: '0.25rem' }}>(optional — only filled ones appear)</span>
+            <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 400, marginLeft: '0.25rem' }}>(optional - only filled ones appear)</span>
           </h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             {field('Facebook', 'facebookLink', <Facebook size={13} />, 'https://facebook.com/yourpage')}
@@ -168,3 +177,4 @@ const AdminProfile: React.FC = () => {
 };
 
 export default AdminProfile;
+

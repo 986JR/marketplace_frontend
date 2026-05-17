@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+﻿import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getPhoneById, getContactInfo, getReviews, addReview, Phone, ContactInfo } from '../services/api';
 import { ChevronLeft, MessageCircle, Phone as PhoneIcon, ShieldCheck, Truck, RefreshCcw, Loader2, Star, Lock } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { toTelHref, toWhatsAppHref } from '../utils/contact';
 
 const PhoneDetailsPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -80,7 +81,7 @@ const PhoneDetailsPage: React.FC = () => {
         Back to listing
       </Link>
 
-      <div style={{
+      <div className="details-grid" style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
         gap: '3rem',
@@ -106,7 +107,7 @@ const PhoneDetailsPage: React.FC = () => {
         <div>
           <div style={{ marginBottom: '1.5rem' }}>
             <span style={{ color: 'var(--accent)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px', fontSize: '0.85rem' }}>
-              {phone.brand} • {phone.condition}
+              {phone.brand} - {phone.condition}
             </span>
             <h1 style={{ fontSize: 'clamp(1.8rem, 5vw, 3rem)', margin: '0.5rem 0 0.25rem' }}>{phone.model}</h1>
             {avgRating && (
@@ -130,7 +131,7 @@ const PhoneDetailsPage: React.FC = () => {
           <div style={{ display: 'flex', gap: '1rem', marginBottom: '2.5rem', flexWrap: 'wrap' }}>
             {contact?.whatsappNumber ? (
               <a
-                href={`https://wa.me/${contact.whatsappNumber.replace(/\D/g, '')}?text=Hi, I am interested in the ${phone.model} (${phone.brand}) priced at TZS ${phone.price}.`}
+                href={toWhatsAppHref(contact.whatsappNumber, `Hi, I am interested in the ${phone.model} (${phone.brand}) priced at TZS ${phone.price}.`)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-primary"
@@ -142,7 +143,7 @@ const PhoneDetailsPage: React.FC = () => {
             ) : null}
             {contact?.phoneNumber ? (
               <a
-                href={`tel:${contact.phoneNumber}`}
+                href={toTelHref(contact.phoneNumber)}
                 className="btn-outline"
                 style={{ flex: 1, minWidth: '140px', justifyContent: 'center', textDecoration: 'none' }}
               >
@@ -168,7 +169,7 @@ const PhoneDetailsPage: React.FC = () => {
           )}
 
           {/* Trust Badges */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.75rem' }}>
+          <div className="trust-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.75rem' }}>
             {[
               { icon: <ShieldCheck size={22} color="var(--accent)" />, label: 'Original Quality' },
               { icon: <Truck size={22} color="var(--accent)" />, label: 'Fast Delivery' },
@@ -190,15 +191,15 @@ const PhoneDetailsPage: React.FC = () => {
           {reviews.length > 0 && (
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-muted)', fontSize: '0.9rem' }}>
               <Star size={16} fill="#fbbf24" color="#fbbf24" />
-              {avgRating} average · {reviews.length} review{reviews.length !== 1 ? 's' : ''}
+              {avgRating} average - {reviews.length} review{reviews.length !== 1 ? 's' : ''}
             </div>
           )}
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', alignItems: 'start' }}>
+        <div className="reviews-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', alignItems: 'start' }}>
 
-          {/* Review Form — users only */}
-          <div className="glass" style={{ padding: '1.75rem', borderRadius: '20px' }}>
+          {/* Review Form â€” users only */}
+          <div className="glass review-form-card" style={{ padding: '1.75rem', borderRadius: '20px' }}>
             {isAdmin ? (
               <div style={{ textAlign: 'center', padding: '1.5rem 0' }}>
                 <Lock size={32} color="var(--text-muted)" style={{ margin: '0 auto 0.75rem' }} />
@@ -253,9 +254,9 @@ const PhoneDetailsPage: React.FC = () => {
             )}
           </div>
 
-          {/* Review List — scrollable, fixed height */}
+          {/* Review List â€” scrollable, fixed height */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
-            <div style={{
+            <div className="reviews-scroll" style={{
               maxHeight: '480px',
               overflowY: 'auto',
               display: 'flex',
@@ -300,3 +301,4 @@ const PhoneDetailsPage: React.FC = () => {
 };
 
 export default PhoneDetailsPage;
+

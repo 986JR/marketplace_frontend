@@ -32,6 +32,10 @@ body {
   overflow-x: hidden;
 }
 
+#root {
+  min-height: 100vh;
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
   font-weight: 700;
@@ -78,6 +82,15 @@ button {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1.5rem;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+input, textarea, select {
+  font: inherit;
 }
 
 .btn-primary {
@@ -132,6 +145,7 @@ button {
 .pagination {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   gap: 0.5rem;
   margin-top: 3rem;
   margin-bottom: 2rem;
@@ -154,6 +168,163 @@ button {
 .pagination-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.search-shell {
+  width: 100%;
+}
+
+.filter-panel {
+  box-shadow: var(--shadow-lg);
+}
+
+.details-grid,
+.reviews-grid {
+  width: 100%;
+}
+
+.reviews-scroll {
+  overscroll-behavior: contain;
+}
+
+.auth-page {
+  min-height: calc(100vh - 92px);
+  display: flex;
+  align-items: center;
+  padding: 1rem 0 1.5rem;
+}
+
+.auth-shell {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 520px;
+  border-radius: 24px;
+  padding: 1.25rem 1.25rem 1rem;
+}
+
+.auth-card-compact {
+  max-width: 560px;
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.auth-header h2 {
+  font-size: clamp(1.35rem, 2.8vw, 1.9rem);
+  margin-bottom: 0.35rem;
+}
+
+.auth-header p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.auth-icon {
+  background: linear-gradient(135deg, var(--accent), #2563eb);
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 0.8rem;
+  box-shadow: 0 12px 24px -12px var(--accent);
+}
+
+.auth-form {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.auth-form-tight {
+  gap: 0.5rem;
+}
+
+.auth-label {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.auth-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 12px;
+  padding: 0.35rem 0.65rem;
+}
+
+.auth-input-wrap svg {
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.auth-input-wrap input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: var(--text);
+  outline: none;
+  padding: 0.45rem 0;
+  font-size: 0.92rem;
+}
+
+.auth-input-wrap input::placeholder {
+  color: #7c8ca9;
+}
+
+.auth-eye {
+  color: var(--text-muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-submit {
+  width: 100%;
+  justify-content: center;
+  margin-top: 0.4rem;
+}
+
+.auth-alert {
+  border-radius: 12px;
+  padding: 0.7rem 0.8rem;
+  margin-bottom: 0.7rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.86rem;
+}
+
+.auth-alert-error {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  color: #fca5a5;
+}
+
+.auth-alert-success {
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  color: #6ee7b7;
+}
+
+.auth-switch {
+  text-align: center;
+  margin-top: 0.9rem;
+  color: var(--text-muted);
+  font-size: 0.86rem;
+}
+
+.auth-switch a {
+  color: var(--accent);
+  font-weight: 600;
 }
 
 /* Spinner */
@@ -202,4 +373,76 @@ input:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0 1000px #0f172a inset;
   -webkit-text-fill-color: #f8fafc;
   caret-color: #f8fafc;
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 0 1rem;
+  }
+
+  .btn-primary,
+  .btn-outline {
+    padding: 0.65rem 1rem;
+    font-size: 0.88rem;
+  }
+
+  .filters-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .filter-panel {
+    padding: 1rem !important;
+  }
+
+  .listing-header h2 {
+    font-size: 1.2rem !important;
+  }
+
+  .details-grid {
+    gap: 1.5rem !important;
+    grid-template-columns: 1fr !important;
+  }
+
+  .reviews-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+
+  .review-form-card {
+    order: 2;
+  }
+
+  .reviews-scroll {
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  .trust-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .pagination {
+    margin-top: 1.5rem;
+  }
+
+  .auth-page {
+    align-items: stretch;
+    min-height: calc(100vh - 78px);
+    padding: 0.65rem 0 1rem;
+  }
+
+  .auth-card {
+    border-radius: 18px;
+    padding: 1rem 0.9rem 0.85rem;
+  }
+
+  .auth-header {
+    margin-bottom: 0.8rem;
+  }
+
+  .auth-icon {
+    width: 46px;
+    height: 46px;
+    margin-bottom: 0.65rem;
+  }
 }

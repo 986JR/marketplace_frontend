@@ -1,6 +1,7 @@
 ﻿import React, { useEffect, useState } from 'react';
 import { Facebook, Instagram, Twitter, MessageCircle, Phone, Mail, MapPin } from 'lucide-react';
 import { getContactInfo, ContactInfo } from '../services/api';
+import { ensureExternalUrl, toTelHref, toWhatsAppHref } from '../utils/contact';
 
 const Footer: React.FC = () => {
   const [contact, setContact] = useState<ContactInfo | null>(null);
@@ -10,11 +11,11 @@ const Footer: React.FC = () => {
   }, []);
 
   const socialLinks = [
-    { icon: <MessageCircle size={18} />, href: contact?.whatsappNumber ? `https://wa.me/${contact.whatsappNumber.replace(/\D/g, '')}` : null, label: 'WhatsApp', color: '#25D366' },
-    { icon: <Instagram size={18} />, href: contact?.instagramLink || null, label: 'Instagram', color: '#E1306C' },
-    { icon: <Facebook size={18} />, href: contact?.facebookLink || null, label: 'Facebook', color: '#1877F2' },
-    { icon: <Twitter size={18} />, href: contact?.twitterLink || null, label: 'Twitter/X', color: '#1DA1F2' },
-  ].filter(s => s.href);
+    { icon: <MessageCircle size={18} />, href: toWhatsAppHref(contact?.whatsappNumber), label: 'WhatsApp', color: '#25D366' },
+    { icon: <Instagram size={18} />, href: ensureExternalUrl(contact?.instagramLink), label: 'Instagram', color: '#E1306C' },
+    { icon: <Facebook size={18} />, href: ensureExternalUrl(contact?.facebookLink), label: 'Facebook', color: '#1877F2' },
+    { icon: <Twitter size={18} />, href: ensureExternalUrl(contact?.twitterLink), label: 'Twitter/X', color: '#1DA1F2' },
+  ].filter(s => !!s.href);
 
   return (
     <footer style={{
@@ -59,7 +60,7 @@ const Footer: React.FC = () => {
               )}
               {contact?.phoneNumber && (
                 <a
-                  href={`tel:${contact.phoneNumber}`}
+                  href={toTelHref(contact.phoneNumber)}
                   style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.88rem', transition: 'color 0.2s' }}
                   onMouseOver={e => (e.currentTarget.style.color = 'white')}
                   onMouseOut={e => (e.currentTarget.style.color = 'var(--text-muted)')}
@@ -70,7 +71,7 @@ const Footer: React.FC = () => {
               )}
               {contact?.whatsappNumber && (
                 <a
-                  href={`https://wa.me/${contact.whatsappNumber.replace(/\D/g, '')}`}
+                  href={toWhatsAppHref(contact.whatsappNumber)}
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.88rem', transition: 'color 0.2s' }}
@@ -149,5 +150,6 @@ const Footer: React.FC = () => {
 };
 
 export default Footer;
+
 
 

@@ -111,7 +111,7 @@ const HomePage: React.FC = () => {
         )}
 
         {/* Search Bar */}
-        <div style={{ maxWidth: '560px', margin: '0 auto', position: 'relative' }}>
+        <div className="search-shell" style={{ maxWidth: '560px', margin: '0 auto', position: 'relative' }}>
           <div className="glass" style={{
             padding: '0.5rem 1rem',
             borderRadius: '16px',
@@ -156,7 +156,7 @@ const HomePage: React.FC = () => {
 
           {/* Filter Panel */}
           {filtersOpen && (
-            <div className="glass animate-fade-in" style={{
+            <div className="glass animate-fade-in filter-panel" style={{
               position: 'absolute',
               top: 'calc(100% + 0.75rem)',
               left: 0,
@@ -168,7 +168,7 @@ const HomePage: React.FC = () => {
               border: '1px solid var(--border)',
               textAlign: 'left'
             }}>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+              <div className="filters-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                 {/* Condition */}
                 <div style={{ gridColumn: '1 / -1' }}>
                   <label style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.5rem', display: 'block' }}>Condition</label>
@@ -258,7 +258,7 @@ const HomePage: React.FC = () => {
 
       {/* Listing */}
       <section>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+        <div className="listing-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '0.5rem' }}>
           <h2 style={{ fontSize: '1.5rem' }}>{isAdmin ? 'Inventory' : 'Available Phones'}</h2>
           <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
             {loading ? 'Loading...' : `${totalElements} device${totalElements !== 1 ? 's' : ''} found`}

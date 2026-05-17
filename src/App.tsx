@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
@@ -12,6 +12,8 @@ import { useAuth } from './context/AuthContext';
 
 const App: React.FC = () => {
   const { user, loading } = useAuth();
+  const location = useLocation();
+  const isAuthRoute = location.pathname === '/login' || location.pathname === '/register';
 
   if (loading) {
     return (
@@ -49,7 +51,7 @@ const App: React.FC = () => {
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </div>
-      <Footer />
+      {!isAuthRoute && <Footer />}
     </div>
   );
 };
